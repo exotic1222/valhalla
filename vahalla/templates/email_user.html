@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Reserva</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .details p {
+            margin: 5px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Confirmación de Reserva</h1>
+        </div>
+        <div class="details">
+            <p><strong>Fecha:</strong> {{ event_date }}</p>
+            <p><strong>Hora:</strong> {{ event_time }}</p>
+            <p><strong>Tipo de Reserva:</strong> {{ reservation_type }}</p>
+            {% if mesa_number %}
+                <p><strong>Número de Mesa:</strong> {{ mesa_number }}</p>
+            {% endif %}
+            <p><strong>Número de Personas:</strong> {{ num_people }}</p>
+            <p><strong>Precio Total:</strong> ${{ price }}</p>
+        </div>
+        <div class="footer">
+            <p>Gracias por reservar con Valhalla Bar. ¡Te esperamos!</p>
+        </div>
+    </div>
+</body>
+</html>

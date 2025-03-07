@@ -1,0 +1,112 @@
+<!-- filepath: /c:/web bautista/vahalla/templates/compras.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - Valhalla Bar</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Valhalla Bar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'menu' %}">Menú</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'eventos' %}">Eventos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'reservas' %}">Reservas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'manual_usuario' %}"><i class="fas fa-book"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'perfil' %}"><i class="fas fa-user"></i></a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-right-from-bracket"></i> <!-- Icono de salida -->
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido de la página de compras -->
+    <div class="container mt-5">
+        <h1 class="text-center">Carrito de Compras</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Tus órdenes</h5>
+                        <ul class="list-group">
+                            {% for item in cart.items.all %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ item.title }} - ${{ item.price }}
+                                    <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <p class="mt-3"><strong>Total de artículos:</strong> {{ cart.items.count }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>Valhalla Bar</h3>
+                    <p>Disfruta de una experiencia única con cócteles exclusivos y un ambiente inigualable.</p>
+                    <div class="socials">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>Enlaces</h3>
+                    <ul>
+                        <li><a href="{% url 'index' %}">Inicio</a></li>
+                        <li><a href="{% url 'menu' %}">Menú</a></li>
+                        <li><a href="{% url 'eventos' %}">Eventos</a></li>
+                        <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Calle Falsa 123</p>
+                    <p><i class="fas fa-phone"></i> +57 123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> info@valhallabar.com</p>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2025 Valhalla Bar | Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

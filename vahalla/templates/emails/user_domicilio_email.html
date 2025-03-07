@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de tu pedido a domicilio</title>
+</head>
+<body>
+    <p>Hola {{ user.first_name }},</p>
+    <p>Gracias por tu pedido en Valhalla Bar. Aquí están los detalles de tu pedido:</p>
+    <ul>
+        {% for product in product_names %}
+            <li>{{ product }}</li>
+        {% endfor %}
+    </ul>
+    <p>Total a pagar: ${{ total_price }}</p>
+    <p>Nombre: {{ nombre }}</p>
+    <p>Dirección: {{ direccion }}</p>
+    <p>Teléfono: {{ telefono }}</p>
+    <p>Tu clave secreta para recibir el pedido es: <strong>{{ secret_key }}</strong></p>
+    <p>¡Te esperamos pronto!</p>
+    <p>Valhalla Bar</p>
+</body>
+</html>

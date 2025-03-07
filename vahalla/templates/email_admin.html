@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+        .container {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .details {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Nueva Reserva - Valhalla Bar</div>
+        <div class="details"><strong>Usuario:</strong> {{ user.username }}</div>
+        <div class="details"><strong>Correo Electrónico:</strong> {{ user.email }}</div>
+        <div class="details"><strong>Fecha:</strong> {{ event_date }}</div>
+        <div class="details"><strong>Hora:</strong> {{ event_time }}</div>
+        <div class="details"><strong>Tipo de Reserva:</strong> {{ reservation_type }}</div>
+        {% if mesa_number %}
+        <div class="details"><strong>Número de Mesa:</strong> {{ mesa_number }}</div>
+        <div class="details"><strong>Número de Personas:</strong> {{ num_people }}</div>
+        <div class="details"><strong>Precio Total:</strong> ${{ price }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
