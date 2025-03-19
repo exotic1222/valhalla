@@ -12,16 +12,18 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv  # Para manejar variables de entorno
+import environ  # Para manejar variables de entorno
 
-# Cargar variables de entorno desde un archivo .env
-load_dotenv()
 
 # BASE_DIR - Ruta base del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+
 # SECRET_KEY - Usa una variable de entorno para mayor seguridad
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "reemplaza-esto-con-tu-secret-key")
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -111,11 +113,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'prime2025exotic@gmail.com'
-EMAIL_HOST_PASSWORD = 'ghcf geqr qpwg difq'  # Reemplaza con la contraseña de aplicación generada
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 # Configuración de mensajes
 from django.contrib.messages import constants as messages
