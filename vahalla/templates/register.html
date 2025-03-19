@@ -361,7 +361,7 @@
             <p class="register-subtitle">Ingresa tus datos para poder iniciar sesion</p>
             <div class="register-forge">
                 <h2>Registro</h2>
-                <form method="post" action="{% url 'register' %}">
+                <form method="POST">
                     {% csrf_token %}
                     {% if messages %}
                         <div class="messages">
@@ -371,22 +371,30 @@
                         </div>
                     {% endif %}
                     <div class="form-group">
-                        <label for="username" class="form-label">Nombre de usuario:</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                        <label for="username" class="form-label">Nombre de Usuario:</label>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ username }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="email" class="form-label">Correo electronico:</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <label for="email" class="form-label">Correo Electrónico:</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ email }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="password1" class="form-label">Palabra Secreta:</label>
+                        <label for="address" class="form-label">Dirección:</label>
+                        <input type="text" class="form-control" id="address" name="address" value="{{ address }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Número de Teléfono:</label>
+                        <input type="text" class="form-control" id="phone" name="phone" value="{{ phone }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password1" class="form-label">Contraseña:</label>
                         <input type="password" class="form-control" id="password1" name="password1" required>
                     </div>
                     <div class="form-group">
-                        <label for="password2" class="form-label">Contraseña:</label>
+                        <label for="password2" class="form-label">Confirmar Contraseña:</label>
                         <input type="password" class="form-control" id="password2" name="password2" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Completar registro</button>
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
                 </form>
                 <div class="register-links">
                     <p>¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesion</a></p>

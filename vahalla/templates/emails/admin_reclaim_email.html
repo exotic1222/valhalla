@@ -3,18 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo pedido para reclamar en el bar</title>
+    <title>🍺 Nuevo Pedido para Reclamar - Valhalla Bar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f5f5e9; font-family: 'Montserrat', sans-serif; color: #2e241d; line-height: 1.6; }
+        .container { max-width: 600px; margin: 20px auto; background: linear-gradient(180deg, #2e241d 0%, #1a1511 100%); border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(181, 137, 90, 0.6); position: relative; }
+        .rune-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); opacity: 0.1; z-index: 0; }
+        .header { background: linear-gradient(135deg, #b5895a, #8c6239); padding: 25px; text-align: center; position: relative; z-index: 1; }
+        .header h1 { font-family: 'Cinzel', serif; color: #f5f5e9; font-size: 30px; text-shadow: 0 0 15px rgba(245, 245, 233, 0.9); }
+        .content { padding: 30px; color: #f5f5e9; position: relative; z-index: 1; }
+        .content h2 { font-family: 'Cinzel', serif; color: #b5895a; font-size: 24px; margin-bottom: 20px; text-shadow: 0 0 5px rgba(181, 137, 90, 0.5); }
+        .info { margin-bottom: 25px; }
+        .info p { font-size: 16px; margin: 10px 0; display: flex; align-items: center; }
+        .info p i { color: #b5895a; margin-right: 12px; font-size: 18px; }
+        .products { background: rgba(245, 245, 233, 0.15); padding: 20px; border-radius: 10px; margin-bottom: 25px; border: 1px solid #b5895a; }
+        .products ul { list-style: none; }
+        .products li { font-size: 15px; margin: 8px 0; padding-left: 25px; position: relative; }
+        .products li:before { content: "\f51e"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #b5895a; position: absolute; left: 0; font-size: 14px; }
+        .highlight { color: #f5f5e9; font-weight: bold; border-bottom: 2px solid #b5895a; padding-bottom: 2px; }
+        .footer { background: #b5895a; padding: 20px; text-align: center; color: #2e241d; font-size: 13px; position: relative; z-index: 1; }
+        .footer a { color: #2e241d; text-decoration: none; margin: 0 12px; font-size: 16px; }
+        .footer a:hover { color: #f5f5e9; }
+        @media (max-width: 600px) { .container { margin: 10px; } .header h1 { font-size: 24px; } .content h2 { font-size: 20px; } }
+    </style>
 </head>
 <body>
-    <p>Nuevo pedido para reclamar en el bar:</p>
-    <p>Usuario: {{ user.username }}</p>
-    <p>Nombre: {{ user.first_name }} {{ user.last_name }}</p>
-    <ul>
-        {% for product in product_names %}
-            <li>{{ product }}</li>
-        {% endfor %}
-    </ul>
-    <p>Total a pagar: ${{ total_price }}</p>
-    <p>Clave secreta del usuario: <strong>{{ secret_key }}</strong></p>
+    <div class="container">
+        <div class="rune-bg"></div>
+        <div class="header">
+            <h1><i class="fas fa-store"></i> 🍺 Nuevo Pedido para Reclamar</h1>
+        </div>
+        <div class="content">
+            <h2>📜 Detalles del Pedido</h2>
+            <div class="info">
+                <p><i class="fas fa-user-shield"></i> Usuario: {{ user.username }}</p>
+                <p><i class="fas fa-signature"></i> Nombre: {{ user.first_name }} {{ user.last_name }}</p>
+            </div>
+            <div class="products">
+                <h2>🍻 Productos Solicitados</h2>
+                <ul>
+                    {% for product in product_names %}
+                        <li>{{ product }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <p><i class="fas fa-coins"></i> Total a pagar: <span class="highlight">${{ total_price }}</span> 💰</p>
+            <p><i class="fas fa-key"></i> Clave secreta: <span class="highlight">{{ secret_key }}</span> 🔒</p>
+        </div>
+        <div class="footer">
+            <p>🌌 Valhalla Bar © 2025 | Forjado en las estrellas</p>
+            <p>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </p>
+        </div>
+    </div>
 </body>
 </html>

@@ -5,7 +5,4 @@ class VahallaConfig(AppConfig):
     name = 'vahalla'
 
     def ready(self):
-        try:
-            from . import signals
-        except ImportError:
-            pass
+        import vahalla.signals

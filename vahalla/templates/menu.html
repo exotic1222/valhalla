@@ -1,4 +1,4 @@
-{% load static %}
+{{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -923,7 +923,7 @@
                 'X-CSRFToken': '{{ csrf_token }}',
                 'Content-Type': 'application/json'
             }
-        }).then(response => {
+        }).then(response => { 
             if (response.ok) {
                 var cartItemsList = document.querySelector('.cart-items');
                 cartItemsList.innerHTML = '';

@@ -1,371 +1,21 @@
-{% load static %}
+{{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservas - Valhalla Bar</title>
-    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;500;800&display=swap" rel="stylesheet">
-    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
     <!-- Custom CSS -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f5f5e9, #e8d8b8);
-            font-family: 'Montserrat', sans-serif;
-            color: #4a3c31;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Norse Rune Background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop') no-repeat center/cover;
-            opacity: 0.1;
-            z-index: -1;
-            animation: runeFade 15s infinite alternate;
-        }
-
-        /* Navbar */
-        .navbar {
-            background: #d4a373 !important;
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            animation: slideDown 1s ease-in-out;
-        }
-        .navbar-brand {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(240, 230, 210, 0.8);
-        }
-        .navbar-nav .nav-link {
-            color: #ffffff;
-            font-weight: 500;
-            margin: 0 15px;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        .navbar-nav .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: #f5f5e9;
-            bottom: -5px;
-            left: 0;
-            transition: width 0.3s ease;
-        }
-        .navbar-nav .nav-link:hover::after {
-            width: 100%;
-        }
-        .navbar-nav .nav-link:hover {
-            color: #f5f5e9;
-        }
-        .dropdown-menu {
-            background: #d4a373;
-            border: none;
-        }
-        .dropdown-item {
-            color: #ffffff;
-            transition: all 0.3s ease;
-        }
-        .dropdown-item:hover {
-            background: #f5f5e9;
-            color: #4a3c31;
-        }
-
-        /* Celebrate Section */
-        .celebrate-section {
-            padding: 150px 0;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-        .celebrate-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(212, 163, 115, 0.3), transparent);
-            animation: glowPulse 10s infinite alternate;
-            z-index: -1;
-        }
-        .section-title {
-            font-family: 'Cinzel', serif;
-            font-size: 4.5rem;
-            color: #d4a373;
-            text-align: center;
-            text-shadow: 0 0 20px rgba(212, 163, 115, 0.8);
-            margin-bottom: 20px;
-            animation: glowText 3s infinite alternate;
-        }
-        .section-subtitle {
-            font-size: 1.5rem;
-            color: #4a3c31;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 60px;
-            animation: fadeInUp 2s ease-in-out;
-        }
-
-        /* Media Container (for both Image and Map) */
-        .media-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(212, 163, 115, 0.4);
-            transition: transform 0.5s ease;
-            height: 400px; /* Fixed height for consistency */
-            margin-bottom: 40px;
-        }
-        .media-container:hover {
-            transform: scale(1.05);
-        }
-        .media-container img, .media-container iframe {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* For image */
-            border: 0; /* For iframe */
-            transition: transform 0.5s ease, filter 0.5s ease;
-        }
-        .media-container:hover img {
-            transform: scale(1.15);
-            filter: brightness(1.2);
-        }
-        .media-container .image-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(212, 163, 115, 0.2), rgba(74, 60, 49, 0.7));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        .media-container:hover .image-overlay {
-            opacity: 1;
-        }
-        .media-container .image-overlay span {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            color: #f5f5e9;
-            text-shadow: 0 0 10px rgba(240, 230, 210, 0.8);
-        }
-        /* Entrance Animations */
-        .media-container.image-entry {
-            animation: slideInLeft 1.5s ease-out forwards;
-        }
-        .media-container.map-entry {
-            animation: slideInRight 1.5s ease-out forwards;
-        }
-
-        /* Form Container */
-        .form-container {
-            background: rgba(74, 60, 49, 0.9);
-            border: 3px solid #d4a373;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(212, 163, 115, 0.3);
-            animation: floatGlow 5s infinite ease-in-out;
-        }
-
-        .form-container label {
-            font-family: 'Montserrat', sans-serif;
-            color: #f5f5e9;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-        .form-container h3 {
-            font-family: 'Cinzel', serif;
-            color: #d4a373;
-            font-size: 2.5rem;
-            margin-bottom: 25px;
-            text-shadow: 0 0 10px rgba(212, 163, 115, 0.5);
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-control {
-            background: rgba(245, 245, 233, 0.1);
-            border: 1px solid #d4a373;
-            color: #f5f5e9;
-            font-family: 'Montserrat', sans-serif;
-            border-radius: 10px;
-            padding: 15px;
-            transition: all 0.4s ease;
-        }
-        .form-control:focus {
-            background: rgba(245, 245, 233, 0.2);
-            border-color: #f5f5e9;
-            box-shadow: 0 0 15px rgba(212, 163, 115, 0.5);
-            color: #f5f5e9;
-        }
-        .form-control::placeholder {
-            color: #b5895a;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #d4a373, #b5895a);
-            border: none;
-            color: #4a3c31;
-            font-weight: 700;
-            padding: 15px 40px;
-            border-radius: 25px;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.4s ease;
-            animation: bounce 2s infinite;
-        }
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #f5f5e9, #d4a373);
-            transform: scale(1.1);
-            box-shadow: 0 5px 20px rgba(212, 163, 115, 0.8);
-        }
-
-
-/* Footer */
-.footer {
-            background: linear-gradient(90deg, #d4a373, #b5895a);
-            padding: 60px 0 20px;
-            color: #4a3c31;
-            position: relative;
-            overflow: hidden;
-            animation: slideUp 1s ease-in-out;
-        }
-        .footer-content {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 0 auto 40px;
-        }
-        .footer-section h3 {
-            font-family: 'Cinzel', serif;
-            color: #f5f5e9;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(240, 230, 210, 0.5);
-        }
-        .footer-section p, .footer-section ul li {
-            font-size: 1.1rem;
-            color: #4a3c31;
-        }
-        .footer-section a {
-            color: #4a3c31;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .footer-section a:hover {
-            color: #f5f5e9;
-            text-shadow: 0 0 5px rgba(240, 230, 210, 0.7);
-        }
-        .socials {
-            display: flex;
-            gap: 20px; /* Añadido para mantener consistencia con .social-links */
-        }
-        .socials a {
-            font-size: 1.8rem;
-            color: #4a3c31;
-            transition: all 0.4s ease; /* Transición suave como en .social-links */
-        }
-        .socials a:hover {
-            color: #f5f5e9;
-            transform: scale(1.3) rotate(360deg); /* Rotación y escala como en .social-links */
-            text-shadow: 0 0 10px rgba(240, 230, 210, 0.8); /* Sombra como en .social-links */
-        }
-        .footer-copyright {
-            text-align: center;
-            font-size: 0.9rem;
-            color: #4a3c31;
-            border-top: 1px solid rgba(240, 230, 210, 0.3);
-            padding-top: 20px;
-        }
-
-        /* Animations */
-        @keyframes slideDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes fadeInUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes glowText {
-            0% { text-shadow: 0 0 10px rgba(212, 163, 115, 0.5); }
-            100% { text-shadow: 0 0 25px rgba(212, 163, 115, 1); }
-        }
-        @keyframes floatGlow {
-            0% { transform: translateY(0); box-shadow: 0 10px 30px rgba(212, 163, 115, 0.3); }
-            50% { transform: translateY(-15px); box-shadow: 0 15px 40px rgba(212, 163, 115, 0.5); }
-            100% { transform: translateY(0); box-shadow: 0 10px 30px rgba(212, 163, 115, 0.3); }
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-        @keyframes glowPulse {
-            0% { opacity: 0.3; }
-            100% { opacity: 0.5; }
-        }
-        @keyframes runeFade {
-            0% { opacity: 0.1; }
-            100% { opacity: 0.2; }
-        }
-        @keyframes slideInLeft {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @media (max-width: 768px) {
-            .section-title { font-size: 3rem; }
-            .form-container { padding: 20px; }
-            .media-container { height: 300px; margin-bottom: 20px; }
-            .footer-content { flex-direction: column; text-align: center; }
-            .footer-section { margin-bottom: 40px; }
-            .socials { justify-content: center; }
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/reservas.css' %}">
 </head>
 <body>
-    <!-- Navbar -->
+    <!-- Navbar (tu original, sin cambios) -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container"> 
             <a class="navbar-brand" href="#">Valhalla Bar</a>
@@ -402,17 +52,17 @@
         </div>
     </nav>
 
-    <!-- Celebrate Section -->
+    <!-- Celebrate Section (diseño mejorado) -->
     <section class="celebrate-section">
         <div class="container">
-            <h2 class="section-title">pasa una noche inolvidable</h2>
-            <p class="section-subtitle">Reserva tu lugar en el Valhalla y haz que tu celebración sea eterna.</p>
-            <div class="row">
+            <h2 class="section-title">Reserva tu experiencia</h2>
+            <p class="section-subtitle">Asegura tu lugar en Valhalla Bar y vive una noche inolvidable.</p>
+            <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="media-container image-entry">
                         <img src="{% static 'img/a5.jpg' %}" alt="Reservas para eventos">
                         <div class="image-overlay">
-                            <span>te animas?</span>
+                            <span>Tu noche comienza aquí</span>
                         </div>
                     </div>
                 </div>
@@ -423,86 +73,109 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <div class="form-container">
-                        <h3>has tu reserva</h3>
-                        <form method="POST" action="{% url 'reservar' %}">
+                        <h3>Haz tu Reserva</h3>
+                        <form method="POST" action="{% url 'reservar' %}" class="reservation-form">
                             {% csrf_token %}
-                            <div class="form-group">
-                                <label for="event_date">Fecha del Evento:</label>
-                                <input type="date" class="form-control" id="event_date" name="event_date" required>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="event_date"><i class="fas fa-calendar-alt"></i> Fecha del Evento</label>
+                                        <input type="date" class="form-control" id="event_date" name="event_date" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="event_time"><i class="fas fa-clock"></i> Hora del Evento</label>
+                                        <input type="time" class="form-control" id="event_time" name="event_time" required>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="event_time">Hora del Evento:</label>
-                                <input type="time" class="form-control" id="event_time" name="event_time" required>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="reservation_type"><i class="fas fa-bookmark"></i> Tipo de Reserva</label>
+                                        <select class="form-control" id="reservation_type" name="reservation_type" required onchange="calculatePrice()">
+                                            <option value="sitio">Sitio</option>
+                                            <option value="mesa">Mesa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" id="mesa_number_group" style="display: none;">
+                                        <label for="mesa_number"><i class="fas fa-chair"></i> Número de Mesa</label>
+                                        <input type="number" class="form-control" id="mesa_number" name="mesa_number">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="reservation_type">Tipo de Reserva:</label>
-                                <select class="form-control" id="reservation_type" name="reservation_type" required onchange="calculatePrice()">
-                                    <option value="sitio">Sitio</option>
-                                    <option value="mesa">Mesa</option>
-                                </select>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="num_people"><i class="fas fa-users"></i> Número de Personas</label>
+                                        <input type="number" class="form-control" id="num_people" name="num_people" required onchange="calculatePrice()">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="price"><i class="fas fa-coins"></i> Precio Total</label>
+                                        <input type="text" class="form-control" id="price" name="price" readonly>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group" id="mesa_number_group" style="display: none;">
-                                <label for="mesa_number">Número de Mesa:</label>
-                                <input type="number" class="form-control" id="mesa_number" name="mesa_number">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group price-display">
+                                        <label for="formatted_price">Precio Formateado</label>
+                                        <input type="text" class="form-control" id="formatted_price" readonly>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="num_people">Número de Personas:</label>
-                                <input type="number" class="form-control" id="num_people" name="num_people" required onchange="calculatePrice()">
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Reservar Ahora</button>
                             </div>
-                            <div class="form-group">
-                                <label for="price">Precio Total:</label>
-                                <input type="text" class="form-control" id="price" name="price" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="formatted_price">Precio Formateado:</label>
-                                <input type="text" class="form-control" id="formatted_price" readonly>
-                            </div>
-                            <button type="submit" class="btn btn-primary">reservar</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-section about">
-                <h3>Valhalla Bar</h3>
-                <p>Redes sociales.</p>
-                <div class="socials">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
+
+    <!-- Footer (tu original, sin cambios) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>Valhalla Bar</h3>
+                    <p>Redes sociales.</p>
+                    <div class="socials">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>Enlaces</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'index' %}">Inicio</a></li>
+                        <li><a href="{% url 'menu' %}">Menú</a></li>
+                        <li><a href="{% url 'eventos' %}">Eventos</a></li>
+                        <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Calle Falsa 123</p>
+                    <p><i class="fas fa-phone"></i> +57 123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> info@valhallabar.com</p>
                 </div>
             </div>
-            <div class="footer-section links">
-                <h3>Enlaces</h3>
-                <ul class="list-unstyled">
-                    <li><a href="{% url 'index' %}">Inicio</a></li>
-                    <li><a href="{% url 'menu' %}">Menú</a></li>
-                    <li><a href="{% url 'eventos' %}">Eventos</a></li>
-                    <li><a href="{% url 'contacto' %}">Contacto</a></li>
-                </ul>
-            </div>
-            <div class="footer-section contact">
-                <h3>Contacto</h3>
-                <p><i class="fas fa-map-marker-alt"></i> Calle Falsa 123</p>
-                <p><i class="fas fa-phone"></i> +57 123 456 7890</p>
-                <p><i class="fas fa-envelope"></i> info@valhallabar.com</p>
+            <div class="footer-copyright">
+                <p>© 2025 Valhalla Bar | Forjado en las estrellas.</p>
             </div>
         </div>
-        <div class="footer-copyright">
-            <p>© 2025 Valhalla Bar | Forjado en las estrellas.</p>
-        </div>
-    </div>
-</footer>
-
-
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

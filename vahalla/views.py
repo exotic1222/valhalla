@@ -8,7 +8,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from .models import Reservation, MenuItem, Cart, CartItem, PurchaseHistory, Event
+from .models import Reservation, MenuItem, Cart, CartItem, PurchaseHistory, Event, Profile
 from .forms import ReservationForm
 import json
 from decimal import Decimal
@@ -316,22 +316,23 @@ def send_domicilio_email(request):
 def redirect_to_whatsapp(request):
     if request.method == 'POST':
         user = request.user
-        total_price = request.POST.get('total_price')
         product_names = request.POST.get('product_names')
 
-        try:
-            total_price = Decimal(total_price)
-        except (ValueError, TypeError):
-            return redirect('menu')
-
         product_names_list = product_names.split(', ')
+        total_price = Decimal(0)
 
         for product_name in product_names_list:
-            PurchaseHistory.objects.create(
-                user=user,
-                product_name=product_name,
-                total_price=total_price
-            )
+            try:
+                menu_item = MenuItem.objects.get(title=product_name)
+                PurchaseHistory.objects.create(
+                    user=user,
+                    product_name=menu_item.title,
+                    total_price=menu_item.price
+                )
+                total_price += menu_item.price
+            except MenuItem.DoesNotExist:
+                messages.error(request, f"El producto {product_name} no existe en el menú.")
+                return redirect('menu')
 
         phone_number = "573144662953"
         message = f"Hola, este es el comprobante de mi pago por los productos: {product_names}. El total a pagar es {total_price}."
@@ -342,6 +343,26 @@ def redirect_to_whatsapp(request):
 
 @login_required
 def perfil(request):
+    user = request.user
+    profile, created = Profile.objects.get_or_create(user=user)
+
+    if request.method == 'POST':
+        user.first_name = request.POST.get('first_name', user.first_name)
+        user.last_name = request.POST.get('last_name', user.last_name)
+        profile.address = request.POST.get('address', profile.address)
+        profile.phone = request.POST.get('phone', profile.phone)
+        
+        if 'profile_image' in request.FILES:
+            profile.profile_image = request.FILES['profile_image']
+        elif request.POST.get('delete_profile_image') == '1' and profile.profile_image:
+            profile.profile_image.delete(save=False)  # Elimina el archivo del sistema
+            profile.profile_image = None
+        
+        user.save()
+        profile.save()
+        messages.success(request, "¡Perfil actualizado exitosamente!")
+        return redirect('perfil')
+
     purchase_history = PurchaseHistory.objects.filter(user=request.user).order_by('-date')
     return render(request, 'perfil.html', {'purchase_history': purchase_history})
 

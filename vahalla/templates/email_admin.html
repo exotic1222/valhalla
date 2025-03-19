@@ -3,41 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>📅 Nueva Reserva - Valhalla Bar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-        }
-        .container {
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-        }
-        .header {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .details {
-            margin-bottom: 10px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f5f5e9; font-family: 'Roboto', sans-serif; color: #2e241d; line-height: 1.6; }
+        .container { max-width: 650px; margin: 20px auto; background: linear-gradient(180deg, #2e241d 0%, #1a1511 100%); border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(181, 137, 90, 0.5); position: relative; }
+        .texture { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); opacity: 0.08; z-index: 0; }
+        .header { background: linear-gradient(135deg, #b5895a, #8c6239); padding: 30px; text-align: center; position: relative; z-index: 1; border-bottom: 3px solid rgba(245, 245, 233, 0.3); }
+        .header h1 { font-family: 'Cinzel', serif; color: #f5f5e9; font-size: 32px; text-shadow: 0 0 15px rgba(245, 245, 233, 0.9); letter-spacing: 1px; }
+        .content { padding: 35px; color: #f5f5e9; position: relative; z-index: 1; }
+        .content h2 { font-family: 'Cinzel', serif; color: #b5895a; font-size: 24px; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 5px rgba(181, 137, 90, 0.6); }
+        .details { background: rgba(245, 245, 233, 0.15); padding: 25px; border-radius: 12px; border: 2px solid #b5895a; box-shadow: inset 0 0 10px rgba(181, 137, 90, 0.2); }
+        .details p { font-size: 16px; margin: 15px 0; display: flex; align-items: center; }
+        .details p i { color: #b5895a; margin-right: 15px; font-size: 20px; }
+        .details p strong { color: #f5f5e9; font-weight: 500; margin-right: 10px; }
+        .highlight { color: #f5f5e9; font-weight: bold; border-bottom: 2px dashed #b5895a; padding-bottom: 3px; }
+        .footer { background: #b5895a; padding: 25px; text-align: center; color: #2e241d; font-size: 14px; position: relative; z-index: 1; }
+        .footer p { margin: 5px 0; }
+        .footer a { color: #2e241d; text-decoration: none; margin: 0 12px; font-size: 18px; transition: color 0.3s ease; }
+        .footer a:hover { color: #f5f5e9; }
+        @media (max-width: 600px) { .container { margin: 10px; } .header h1 { font-size: 26px; } .content h2 { font-size: 20px; } .details p { font-size: 14px; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">Nueva Reserva - Valhalla Bar</div>
-        <div class="details"><strong>Usuario:</strong> {{ user.username }}</div>
-        <div class="details"><strong>Correo Electrónico:</strong> {{ user.email }}</div>
-        <div class="details"><strong>Fecha:</strong> {{ event_date }}</div>
-        <div class="details"><strong>Hora:</strong> {{ event_time }}</div>
-        <div class="details"><strong>Tipo de Reserva:</strong> {{ reservation_type }}</div>
-        {% if mesa_number %}
-        <div class="details"><strong>Número de Mesa:</strong> {{ mesa_number }}</div>
-        <div class="details"><strong>Número de Personas:</strong> {{ num_people }}</div>
-        <div class="details"><strong>Precio Total:</strong> ${{ price }}</div>
-        {% endif %}
+        <div class="texture"></div>
+        <div class="header">
+            <h1><i class="fas fa-calendar-check"></i> Nueva Reserva</h1>
+        </div>
+        <div class="content">
+            <h2>Detalles de la Reserva</h2>
+            <div class="details">
+                <p><i class="fas fa-user"></i> <strong>Usuario:</strong> {{ user.username }}</p>
+                <p><i class="fas fa-envelope"></i> <strong>Correo Electrónico:</strong> {{ user.email }}</p>
+                <p><i class="fas fa-calendar-alt"></i> <strong>Fecha:</strong> {{ event_date }}</p>
+                <p><i class="fas fa-clock"></i> <strong>Hora:</strong> {{ event_time }}</p>
+                <p><i class="fas fa-bookmark"></i> <strong>Tipo de Reserva:</strong> {{ reservation_type }}</p>
+                {% if mesa_number %}
+                    <p><i class="fas fa-chair"></i> <strong>Número de Mesa:</strong> {{ mesa_number }}</p>
+                    <p><i class="fas fa-users"></i> <strong>Número de Personas:</strong> {{ num_people }}</p>
+                    <p><i class="fas fa-coins"></i> <strong>Precio Total:</strong> <span class="highlight">${{ price }}</span></p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="footer">
+            <p>Valhalla Bar © 2025</p>
+            <p><a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-instagram"></i></a> <a href="#"><i class="fab fa-twitter"></i></a></p>
+            <p>info@valhallabar.com | +57 123 456 7890</p>
+        </div>
     </div>
 </body>
 </html>
