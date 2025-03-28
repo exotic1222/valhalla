@@ -1,0 +1,317 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(180deg, #f5f5e9, #e8d8b8);
+    color: #4a3c31;
+    overflow-x: hidden;
+}
+
+/* Navbar */
+.navbar {
+    background: #d4a373 !important;
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: slideDown 1s ease-in-out;
+}
+.navbar-brand {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.navbar-nav .nav-link {
+    color: #ffffff;
+    font-weight: 500;
+    margin: 0 15px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #f5f5e9;
+    bottom: -5px;
+    left: 0;
+    transition: width 0.3s ease;
+}
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+.navbar-nav .nav-link:hover {
+    color: #f5f5e9;
+}
+.dropdown-menu {
+    background: #d4a373;
+    border: none;
+}
+.dropdown-item {
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+.dropdown-item:hover {
+    background: #f5f5e9;
+    color: #4a3c31;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    background: url('static/img/a4.jpg') no-repeat center/cover !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: zoomIn 2s ease-in-out;
+}
+.hero-content {
+    color: #ffaa00 ; /* Changed to dark brown for contrast with light background */
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+
+    
+}
+.hero-content h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 5rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    animation: fadeInUp 1.5s ease-in-out;
+}
+.hero-content p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 30px;
+    animation: fadeInUp 2s ease-in-out;
+}
+.hero-content .btn {
+    background: linear-gradient(135deg, #d4a373, #b5895a);
+    color: #ffffff;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.4s ease;
+    animation: bounce 2s infinite;
+}
+.hero-content .btn:hover {
+    background: linear-gradient(135deg, #f5f5e9, #d4a373);
+    transform: scale(1.1);
+    box-shadow: 0 5px 20px rgba(212, 163, 115, 0.8);
+}
+
+/* Sección de Highlights */
+.highlights {
+    padding: 80px 0;
+    background: #e8d8b8;
+}
+.highlights h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 3rem;
+    color: #d4a017;
+    text-align: center;
+    margin-bottom: 60px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+.highlight-card {
+    position: relative;
+    background: #ffffff;
+    border: 2px solid #d4a373; /* Changed to gold for theme consistency */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: slideUp 1s ease-in-out;
+    overflow: hidden;
+}
+.highlight-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 0 20px rgba(212, 163, 115, 0.3); /* Added glow */
+}
+.highlight-card img {
+    width: 100%;
+    height: 200px; /* Tamaño uniforme para las tres imágenes */
+    object-fit: cover;
+    border-radius: 10px;
+}
+.highlight-card h3 {
+    font-family: 'Cinzel', serif;
+    color: #d4a017;
+    margin-top: 20px;
+    text-align: center;
+}
+.highlight-card p {
+    font-weight: 300;
+    color: #4a3c31;
+    text-align: center;
+    padding-bottom: 40px;
+}
+.highlight-card .overlay {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(212, 163, 115, 0.8), transparent);
+    transition: bottom 0.4s ease;
+}
+.highlight-card:hover .overlay {
+    bottom: 0;
+}
+.highlight-card .btn-action {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #d4a373, #b5895a);
+    color: #ffffff;
+    padding: 10px 25px; /* Larger for center card */
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    animation: bounce 2s infinite;
+    z-index: 1;
+}
+/* Specific styling for side cards (smaller buttons) */
+.highlight-card:nth-child(1) .btn-action,
+.highlight-card:nth-child(3) .btn-action {
+    padding: 8px 20px; /* Smaller for side cards */
+    font-size: 0.9rem;
+}
+.highlight-card:hover .btn-action {
+    bottom: 15px;
+}
+.highlight-card .btn-action:hover {
+    background: linear-gradient(135deg, #f5f5e9, #d4a373);
+    transform: scale(1.1) translateX(-50%);
+    box-shadow: 0 5px 20px rgba(212, 163, 115, 0.8);
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(90deg, #d4a373, #b5895a);
+    padding: 60px 0 20px;
+    color: #4a3c31;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 1s ease-in-out;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+}
+.footer-section h3 {
+    font-family: 'Cinzel', serif;
+    color: #f5f5e9;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(240, 230, 210, 0.5);
+}
+.footer-section p, .footer-section ul li {
+    font-size: 1.1rem;
+    color: #4a3c31;
+}
+.footer-section a {
+    color: #4a3c31;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.footer-section a:hover {
+    color: #f5f5e9;
+    text-shadow: 0 0 5px rgba(240, 230, 210, 0.7);
+}
+.socials {
+    display: flex;
+    gap: 20px; /* Añadido para mantener consistencia con .social-links */
+}
+.socials a {
+    font-size: 1.8rem;
+    color: #4a3c31;
+    transition: all 0.4s ease; /* Transición suave como en .social-links */
+}
+.socials a:hover {
+    color: #f5f5e9;
+    transform: scale(1.3) rotate(360deg); /* Rotación y escala como en .social-links */
+    text-shadow: 0 0 10px rgba(240, 230, 210, 0.8); /* Sombra como en .social-links */
+}
+.footer-copyright {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #4a3c31;
+    border-top: 1px solid rgba(240, 230, 210, 0.3);
+    padding-top: 20px;
+}
+
+
+/* Animaciones */
+@keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+@keyframes fadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes slideInLeft {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes forgePulse {
+    0% { opacity: 0.9; }
+    100% { opacity: 1; }
+}
+@keyframes forgeRipple {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(1.1); opacity: 0.3; }
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 3rem; }
+    .cocktail-item { flex-direction: column; text-align: center; }
+    .cocktail-item .btn-action { right: 50%; transform: translateX(-50%); top: auto; bottom: -50px; }
+    .cocktail-item:hover .btn-action { right: 50%; bottom: 10px; }
+    .highlight-card .btn-action,
+    .highlight-card .side-btn { padding: 8px 20px; font-size: 0.9rem; } /* Smaller buttons on mobile for all highlight cards */
+    .footer-content { flex-direction: column; text-align: center; }
+    .footer-section { margin-bottom: 40px; }
+    .socials { justify-content: center; }
+}

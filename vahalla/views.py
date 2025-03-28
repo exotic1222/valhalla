@@ -16,7 +16,7 @@ from decimal import Decimal
 User = get_user_model()
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html') 
 
 def menu(request):
     menu_items = MenuItem.objects.all()

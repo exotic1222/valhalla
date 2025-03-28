@@ -12,7 +12,7 @@ class CustomUser(AbstractUser):
 class Reservation(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     event_date = models.DateField()
-    event_time = models.TimeField()
+    event_time = models.TimeField() 
     reservation_type = models.CharField(max_length=10, choices=[('sitio', 'Sitio Completo'), ('mesa', 'Mesa')])
     mesa_number = models.IntegerField(blank=True, null=True)
     num_people = models.IntegerField(default=1)
